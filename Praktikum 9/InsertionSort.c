@@ -4,37 +4,67 @@
 // NIM          : 24060121140116
 
 #include <stdio.h>
-#include "PrintArr.c"
+#include <stdlib.h>
 
-void insertionSort(int arr[], int n) 
+void selectionSort(int array[], int n)
 {
-//Kamus Lokal
-    int i, j, key;
+    //kamus Lokal
+    int i, j, min, temp;
 
-//Algoritma
-    for (i = 0; i < n; i++) {
-        key = arr[i];
-        j = i - 1;
-        while (j >= 0 && arr[j] > key) {
-            arr[j + 1] = arr[j];
-            j--;
+    //Algoritma
+    for(i=0; i<n-1; i++){
+    min=i;
+    for(j = i+1; j<n; j++){
+        if(array[j] < array[min]){
+            min = j;
         }
-        arr[j + 1] = key;
+    }
+    //Proses SWAP: Untuk menukar posisi elemen
+    temp = array[min];
+    array[min] = array[i];
+    array[i] = temp;
     }
 }
 
 int main()
 {
-//Kamus
-    int arr[] = {-1, -6, -3, 10, 4, 5, 2, 13, -10, -12, 21, 0, 15, -8, 1};
-    int n;
+    //kamus
+    int i , n ;
 
-//Algoritma
-    n = sizeof(arr) / sizeof(arr[0]);
-    printf("Array sebelum diurutkan = ");
-    printArr(arr, n);
-    printf("\n");
-    printf("Array setelah diurutkan = ");
-    insertionSort(arr, n);
-    printArr(arr, n);
+    //algoritma
+    printf("-------------------Selection Sort-------------------\n\n");
+
+        //Input
+    printf("Masukkan Jumlah Data: ");
+    scanf("%d", &n);
+        if(n<=0){
+            printf("\n!! Masukan Harus berupa bilangan Positif !!\n");
+        }else{
+            printf("Masukkan Data: \n");
+            int array[n];
+
+            for(i = 0; i<n ;i++){
+                printf("Data ke-%d: ", i+1);
+                scanf("%d", &array[i]);
+            }
+            n = sizeof(array)/sizeof(array[0]);
+
+            //Proses
+            selectionSort(array, n);
+
+            //Output
+            printf("------------------ Hasil Pengurutan ----------------\n");
+            printf("Ascending  : ");
+            for(i=0; i<n; i++){
+                printf("%d ", array[i]);
+            }
+
+            printf("\n\n");
+            printf("Descending : ");
+            for(i=n-1; i>=0; i--){
+                printf("%d ", array[i]);
+            }
+        }
+        printf("\n------------------- Terima Kasih -------------------\n");
+    return 0;
 }
